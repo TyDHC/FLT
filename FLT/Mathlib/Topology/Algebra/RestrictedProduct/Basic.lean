@@ -1,8 +1,12 @@
-import Mathlib.Algebra.Module.LinearMap.Defs
-import Mathlib.Algebra.Ring.Subring.Basic
-import Mathlib.Topology.Algebra.RestrictedProduct.Basic
-import Mathlib.Algebra.Module.Submodule.Defs
-import Mathlib.Algebra.Group.Pointwise.Set.Basic
+module
+
+public import Mathlib.Algebra.Module.LinearMap.Defs
+public import Mathlib.Algebra.Ring.Subring.Basic
+public import Mathlib.Topology.Algebra.RestrictedProduct.Basic
+public import Mathlib.Algebra.Module.Submodule.Defs
+public import Mathlib.Algebra.Group.Pointwise.Set.Basic
+
+@[expose] public section
 
 namespace RestrictedProduct
 
@@ -178,13 +182,13 @@ lemma mem_coset_and_mulSupport_subset_of_isProductAt
 /-- For a cofinite restricted product `Πʳ i, [G i, A i]`, `indexSupport` is the finite set of
 indices for which `u ∉ A i`. -/
 noncomputable
-def indexSupport (u : Πʳ i, [G i, A i]) : Finset ι := Set.Finite.toFinset (by simpa using u.2)
+def indexSupport (u : Πʳ i, [G i, A i]) : Finset ι :=
+  Set.Finite.toFinset (s := {x | u x ∉ A x}) (by simpa using u.2)
 
 @[simp]
 theorem mem_indexSupport_iff {u : Πʳ i, [G i, A i]} {i : ι} :
     i ∈ indexSupport u ↔ u i ∉ A i := by
   simp [indexSupport]
-  rfl
 
 end supports
 

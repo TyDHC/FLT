@@ -1,5 +1,9 @@
-import FLT.Patching.Algebra
-import FLT.Patching.Module
+module
+
+public import FLT.Patching.Algebra
+public import FLT.Patching.Module
+
+@[expose] public section
 
 variable (Λ : Type*) [CommRing Λ]
 variable {ι : Type*} (R : ι → Type*)
@@ -226,7 +230,7 @@ lemma PatchingModule.mem_smul_top (x : PatchingModule Λ M F) :
       simp only [PatchingModule, Module.toModuleEnd_apply, Finsupp.coe_lsum,
         DistribSMul.toLinearMap_apply, smul_zero, implies_true, Finsupp.sum_fintype,
         Finset.univ_eq_attach, Finsupp.equivFunOnFinite_symm_apply_apply,
-        AddSubmonoidClass.coe_finset_sum, SetLike.val_smul_of_tower, Finset.sum_apply,
+        AddSubmonoidClass.coe_finsetSum, SetLike.val_smul_of_tower, Finset.sum_apply,
         Pi.smul_apply, ← this, y, X, s, f]
     rw [← this]
     simp only [Module.toModuleEnd_apply, Finsupp.coe_lsum, DistribSMul.toLinearMap_apply,
@@ -257,7 +261,8 @@ lemma PatchingModule.ker_map_mkQ :
       Pi.smul_apply, ← Submodule.Quotient.mk_smul, Submodule.mapQ_apply, Submodule.mkQ_apply,
       ZeroMemClass.coe_zero, Pi.zero_apply, UltraProduct.πₗ_eq_zero, Submodule.Quotient.mk_eq_zero]
     simp only [← Submodule.mkQ_apply, ← Submodule.mem_comap,
-      Submodule.comap_smul_of_surjective _ _ (Submodule.mkQ_surjective _),
+      Submodule.comap_smul_of_surjective ((𝔫 • ⊤ : Submodule Λ (M _)).mkQ) _
+        (Submodule.mkQ_surjective _),
       Submodule.comap_top, Submodule.ker_mkQ, ← Submodule.sup_smul]
     filter_upwards with i
     exact Submodule.smul_mem_smul (Ideal.mem_sup_right hr) trivial
@@ -267,7 +272,9 @@ def PatchingModule.quotientTo :
     (PatchingModule Λ M F ⧸ (𝔫 • ⊤ : Submodule Λ (PatchingModule Λ M F))) →ₗ[Λ]
       PatchingModule Λ (fun i ↦ (M i) ⧸ (𝔫 • ⊤ : Submodule Λ (M i))) F :=
   Submodule.liftQ _
-    ((PatchingModule.map Λ F fun _ ↦ Submodule.mkQ _).restrictScalars Λ) (ker_map_mkQ Λ M F 𝔫).ge
+    ((PatchingModule.map Λ F fun _ ↦ Submodule.mkQ _).restrictScalars Λ) <| by
+  -- by exact needed to be added after mathlib#38073
+  exact (ker_map_mkQ Λ M F 𝔫).ge
 
 noncomputable
 def PatchingModule.quotientEquiv :

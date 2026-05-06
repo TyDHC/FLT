@@ -1,5 +1,7 @@
-import Mathlib.GroupTheory.Torsion
-import Mathlib.AlgebraicGeometry.EllipticCurve.Affine.Point
+module
+
+public import Mathlib.GroupTheory.Torsion
+public import Mathlib.AlgebraicGeometry.EllipticCurve.Affine.Point
 
 /-!
 
@@ -82,6 +84,8 @@ The github tracking issue for this assumption is #477 on the FLT github reposito
 
 -/
 
+@[expose] public section
+
 open scoped WeierstrassCurve.Affine -- E⟮ℚ⟯ notation
 
 -- Implementation note: The `ncard` function used in the axiom returns the junk
@@ -94,4 +98,4 @@ open scoped WeierstrassCurve.Affine -- E⟮ℚ⟯ notation
 /-- Mazur's bound for the size of the torsion subgroup of an elliptic curve
 over the rationals . -/
 axiom Mazur_statement (E : WeierstrassCurve ℚ) [E.IsElliptic] :
-    (AddCommGroup.torsion E⟮ℚ⟯ : Set E⟮ℚ⟯).ncard ≤ 16
+    (AddCommGroup.torsion (E⁄ℚ).Point : Set (E⁄ℚ).Point).ncard ≤ 16

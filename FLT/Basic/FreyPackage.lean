@@ -1,13 +1,15 @@
-import Mathlib.Algebra.Polynomial.Bivariate
-import Mathlib.AlgebraicGeometry.EllipticCurve.Weierstrass
-import Mathlib.AlgebraicGeometry.EllipticCurve.VariableChange
-import Mathlib.Data.PNat.Basic
-import Mathlib.NumberTheory.FLT.Four
-import Mathlib.NumberTheory.FLT.Three
-import Mathlib.RepresentationTheory.Basic
-import Mathlib.RingTheory.SimpleModule.Basic
-import Mathlib.Tactic.ModCases
-import FLT.EllipticCurve.Torsion
+module
+
+public import Mathlib.Algebra.Polynomial.Bivariate
+public import Mathlib.AlgebraicGeometry.EllipticCurve.Weierstrass
+public import Mathlib.AlgebraicGeometry.EllipticCurve.VariableChange
+public import Mathlib.Data.PNat.Basic
+public import Mathlib.NumberTheory.FLT.Four
+public import Mathlib.NumberTheory.FLT.Three
+public import Mathlib.RepresentationTheory.Basic
+public import Mathlib.RingTheory.SimpleModule.Basic
+public import Mathlib.Tactic.ModCases
+public import FLT.EllipticCurve.Torsion
 
 /-!
 
@@ -38,6 +40,8 @@ integers and a prime `p ≥ 5` such that `a` is 3 mod 4, `b` is even, and `a^p+b
 The proof is an elementary arithmetic argument, assuming Fermat's result that FLT is true
 for n=4 and Euler's result that it's true for n=3.
 -/
+
+@[expose] public section
 
 /-!
 
@@ -346,7 +350,7 @@ lemma j_valuation_of_bad_prime (P : FreyPackage) {q : ℕ} (hqPrime : q.Prime)
     ← padicValRat_of_nat, padicValNat_primes hqodd.ne', Nat.cast_zero, mul_zero, zero_add]
   have : ¬ (q : ℤ) ∣ (P.c^(2*P.p)-(P.a*P.b)^P.p) ^ 3 := by
     rw [hqPrime'.dvd_pow_iff_dvd three_ne_zero]
-    have hq' : Xor' ((q : ℤ) ∣ P.a * P.b) ((q : ℤ) ∣ P.c) := by
+    have hq' : Xor ((q : ℤ) ∣ P.a * P.b) ((q : ℤ) ∣ P.c) := by
       rw [xor_iff_not_iff, iff_iff_and_or_not_and_not]
       rintro (⟨hab, hc⟩ | ⟨hab, hc⟩)
       · rw [hqPrime'.dvd_mul] at hab

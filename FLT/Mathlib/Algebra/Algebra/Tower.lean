@@ -1,6 +1,10 @@
-import Mathlib.Algebra.Algebra.Tower
-import Mathlib.RingTheory.AlgebraTower
-import FLT.Mathlib.Algebra.Algebra.Hom
+module
+
+public import Mathlib.Algebra.Algebra.Tower
+public import Mathlib.RingTheory.AlgebraTower
+public import FLT.Mathlib.Algebra.Algebra.Hom
+
+@[expose] public section
 
 -- TODO: needs work before it can go in mathlib.
 -- Change `IsBiscalar` into a bundled map? Currently this is a pain to use even
@@ -91,7 +95,6 @@ def AlgHom.changeScalars (f : A →ₐ[S] B) [IsBiscalar S S' f] :
   __ := f
   commutes' (r : _) := by simp [IsBiscalar.commutes]
 
-set_option backward.isDefEq.respectTransparency false in
 theorem AlgHom.changeScalars_apply (f : A →ₐ[S] B) [IsBiscalar S S' f] (a : A) :
     changeScalars S' f a = f a := by
   simp [changeScalars]

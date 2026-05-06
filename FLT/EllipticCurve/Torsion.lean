@@ -3,14 +3,16 @@ Copyright (c) 2024 Kevin Buzzard. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Kevin Buzzard
 -/
-import Mathlib.Algebra.Module.Torsion.Free
-import Mathlib.AlgebraicGeometry.EllipticCurve.Affine.Basic
-import Mathlib.AlgebraicGeometry.EllipticCurve.Affine.Formula
-import Mathlib.AlgebraicGeometry.EllipticCurve.Affine.Point
-import Mathlib.FieldTheory.IsSepClosed
-import Mathlib.RepresentationTheory.Basic
-import Mathlib.Topology.Instances.ZMod
-import FLT.Deformations.RepresentationTheory.GaloisRep
+module
+
+public import Mathlib.Algebra.Module.Torsion.Free
+public import Mathlib.AlgebraicGeometry.EllipticCurve.Affine.Basic
+public import Mathlib.AlgebraicGeometry.EllipticCurve.Affine.Formula
+public import Mathlib.AlgebraicGeometry.EllipticCurve.Affine.Point
+public import Mathlib.FieldTheory.IsSepClosed
+public import Mathlib.RepresentationTheory.Basic
+public import Mathlib.Topology.Instances.ZMod
+public import FLT.Deformations.RepresentationTheory.GaloisRep
 
 /-!
 
@@ -23,13 +25,15 @@ could talk to David first. Note that he has already made substantial progress.
 
 -/
 
+@[expose] public section
+
 universe u
 
 variable {k : Type u} [Field k] (E : WeierstrassCurve k) [E.IsElliptic] [DecidableEq k]
 
 open WeierstrassCurve WeierstrassCurve.Affine
 
-abbrev WeierstrassCurve.n_torsion (n : ℕ) : Type u := Submodule.torsionBy ℤ (E ⟮k⟯) n
+abbrev WeierstrassCurve.n_torsion (n : ℕ) : Type u := Submodule.torsionBy ℤ (E⁄k).Point n
 
 --variable (n : ℕ) in
 --#synth AddCommGroup (E.n_torsion n)
@@ -75,7 +79,7 @@ noncomputable instance (n : ℕ) : Module.Finite (ZMod n) (E.n_torsion n) := sor
 is a group homomorphism. -/
 noncomputable def WeierstrassCurve.Points.map {K L : Type u} [Field K] [Field L] [Algebra k K]
     [Algebra k L] [DecidableEq K] [DecidableEq L]
-    (f : K →ₐ[k] L) : E ⟮K⟯ →+ E ⟮L⟯ := WeierstrassCurve.Affine.Point.map f
+    (f : K →ₐ[k] L) : (E⁄K).Point →+ (E⁄L).Point := WeierstrassCurve.Affine.Point.map f
 
 omit [E.IsElliptic] [DecidableEq k] in
 lemma WeierstrassCurve.Points.map_id (K : Type u) [Field K] [DecidableEq K] [Algebra k K] :
@@ -95,13 +99,13 @@ lemma WeierstrassCurve.Points.map_comp (K L M : Type u) [Field K] [Field L] [Fie
 /-- The Galois action on the points of an elliptic curve. -/
 noncomputable instance WeierstrassCurve.galoisRepresentation_smul
     (K : Type u) [Field K] [DecidableEq K] [Algebra k K] :
-    SMul (K ≃ₐ[k] K) (E ⟮K⟯) := ⟨
+    SMul (K ≃ₐ[k] K) (E⁄K).Point := ⟨
   fun g P ↦ WeierstrassCurve.Affine.Point.map (g : K →ₐ[k] K) P⟩
 
 /-- The Galois action on the points of an elliptic curve. -/
 noncomputable instance WeierstrassCurve.galoisRepresentation
     (K : Type u) [Field K] [DecidableEq K] [Algebra k K] :
-    DistribMulAction (K ≃ₐ[k] K) (E ⟮K⟯) where
+    DistribMulAction (K ≃ₐ[k] K) (E⁄K).Point where
       one_smul := sorry -- these should all be easy
       mul_smul := sorry
       smul_zero := sorry

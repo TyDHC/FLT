@@ -3,10 +3,11 @@ Copyright (c) 2025 Thomas Browning. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Thomas Browning
 -/
+module
 
-import Mathlib.MeasureTheory.Constructions.Polish.Basic
-import Mathlib.MeasureTheory.Measure.Haar.Extension
-import Mathlib.MeasureTheory.Measure.Haar.Unique
+public import Mathlib.MeasureTheory.Constructions.Polish.Basic
+public import Mathlib.MeasureTheory.Measure.Haar.Extension
+public import Mathlib.MeasureTheory.Measure.Haar.Unique
 
 
 /-!
@@ -29,6 +30,8 @@ we construct a Haar measure on `B` from Haar measures on `A` and `B`.
   `B` cannot be a fundamental domain.
 
 -/
+
+@[expose] public section
 
 open MeasureTheory MeasureTheory.Measure
 
@@ -55,7 +58,6 @@ theorem not_injOn_of_inducedMeasure_gt (U : Set B) (hU : IsOpen U) [DiscreteTopo
   contrapose! h
   exact H.inducedMeasure_lt_of_injOn μA μC hU h
 
-set_option backward.isDefEq.respectTransparency false in
 @[to_additive]
 theorem not_injOn_of_measure_gt
     {G : Type*} [Group G] [TopologicalSpace G] [IsTopologicalGroup G] [PolishSpace G]

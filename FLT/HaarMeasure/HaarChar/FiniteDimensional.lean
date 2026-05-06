@@ -3,12 +3,16 @@ Copyright (c) 2025 Kevin Buzzard. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Kevin Buzzard, Norbert Voelker
 -/
-import FLT.HaarMeasure.HaarChar.Ring
-import FLT.Mathlib.Topology.Algebra.Module.Equiv
-import FLT.Mathlib.LinearAlgebra.Determinant
-import Mathlib.Topology.Algebra.Module.ModuleTopology
-import FLT.Mathlib.Topology.Algebra.Module.Equiv
-import FLT.Mathlib.LinearAlgebra.Matrix.Transvection
+module
+
+public import FLT.HaarMeasure.HaarChar.Ring
+public import FLT.Mathlib.Topology.Algebra.Module.Equiv
+public import FLT.Mathlib.LinearAlgebra.Determinant
+public import Mathlib.Topology.Algebra.Module.ModuleTopology
+public import FLT.Mathlib.Topology.Algebra.Module.Equiv
+public import FLT.Mathlib.LinearAlgebra.Matrix.Transvection
+
+@[expose] public section
 
 namespace MeasureTheory
 
@@ -218,7 +222,6 @@ variable {V : Type*} [AddCommGroup V] [TopologicalSpace V] [MeasurableSpace V] [
 
 open Module
 
-set_option backward.isDefEq.respectTransparency false in
 /-- Haar measure scaling for invertible linear maps on a finite-dimensional vector space
 over a field F assuming `[SecondCountableTopology F]`. -/
 theorem addEquivAddHaarChar_eq_ringHaarChar_det_of_existsListTransvecEtc

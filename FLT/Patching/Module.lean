@@ -1,9 +1,13 @@
-import FLT.Patching.Ultraproduct
-import FLT.Patching.Utils.AdicTopology
-import Mathlib.Algebra.Module.Torsion.Free
-import Mathlib.LinearAlgebra.FreeModule.StrongRankCondition
-import Mathlib.Topology.Algebra.Nonarchimedean.TotallyDisconnected
-import Mathlib.Topology.Compactness.Paracompact
+module
+
+public import FLT.Patching.Ultraproduct
+public import FLT.Patching.Utils.AdicTopology
+public import Mathlib.Algebra.Module.Torsion.Free
+public import Mathlib.LinearAlgebra.FreeModule.StrongRankCondition
+public import Mathlib.Topology.Algebra.Nonarchimedean.TotallyDisconnected
+public import Mathlib.Topology.Compactness.Paracompact
+
+@[expose] public section
 
 local notation "Ann" => Module.annihilator
 
@@ -39,10 +43,8 @@ instance (i) : Module.Finite (R ⧸ Ann R (M i)) (M i) :=
   Module.finite_of_rank_eq_nat (Cardinal.cast_toNat_of_lt_aleph0
     ((Module.UniformlyBoundedRank.rank_lt_bound R M i).trans Cardinal.natCast_lt_aleph0)).symm
 
-set_option backward.isDefEq.respectTransparency false in
 instance (i) : Module.Finite R (M i) := Module.Finite.trans (R ⧸ Ann R (M i)) (M i)
 
-set_option backward.isDefEq.respectTransparency false in
 lemma Module.UniformlyBoundedRank.exists_finsupp_surjective (i) :
     ∃ f : ((Fin (bound R M)) →₀ R) →ₗ[R] M i, Function.Surjective f := by
   cases subsingleton_or_nontrivial (M i)
@@ -83,7 +85,6 @@ lemma Module.UniformlyBoundedRank.card_quotient_le (i) (I : Ideal R) [Finite (R 
   cases nonempty_fintype (R ⧸ I)
   simp
 
-set_option backward.isDefEq.respectTransparency false in
 lemma Module.UniformlyBoundedRank.exists_rank :
     ∃ n : ℕ, ∀ᶠ i in F, Nonempty (M i ≃ₗ[R] Fin n → R ⧸ Ann R (M i)) := by
   let n := bound R M

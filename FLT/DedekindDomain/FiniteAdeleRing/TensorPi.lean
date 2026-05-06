@@ -3,12 +3,14 @@ Copyright (c) 2025 Madison Crim. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Madison Crim
 -/
-import Mathlib.LinearAlgebra.DirectSum.Finsupp
-import Mathlib.LinearAlgebra.FreeModule.Finite.Basic
-import Mathlib.Algebra.Module.FinitePresentation
-import Mathlib.Algebra.FiveLemma
-import Mathlib.LinearAlgebra.TensorProduct.Pi
-import Mathlib.Algebra.Module.PUnit
+module
+
+public import Mathlib.LinearAlgebra.DirectSum.Finsupp
+public import Mathlib.LinearAlgebra.FreeModule.Finite.Basic
+public import Mathlib.Algebra.Module.FinitePresentation
+public import Mathlib.Algebra.FiveLemma
+public import Mathlib.LinearAlgebra.TensorProduct.Pi
+public import Mathlib.Algebra.Module.PUnit
 /-!
 
 # Tensor product commutes with direct product when tensoring with a finite free module
@@ -26,6 +28,8 @@ If `M` is a finite free module and `Nᵢ` is an indexed collection of modules of
 Switch the names around because the primed version is more general hence better.
 
 -/
+
+@[expose] public section
 open DirectSum Function
 
 section
@@ -194,7 +198,8 @@ Rᵐ ⊗[R] (Π i, N i) --f₁--> Rⁿ ⊗[R] (Π i, N i) --f₂--> M ⊗[R] (Π
 ```
 -/
 noncomputable def tensorPi_equiv_piTensor' [Module.FinitePresentation R M] :
-    M ⊗[R] (Π i, N i) ≃ₗ[R] Π i, (M ⊗[R] N i) := IsTensorProduct.equiv <| by
+    M ⊗[R] (Π i, N i) ≃ₗ[R] Π i, (M ⊗[R] N i) := IsTensorProduct.equiv
+    (f := TensorProduct.piRightHomBil R R M N) <| by
   obtain ⟨n, m, f, g, exact, surj⟩ := Module.FinitePresentation.exists_fin_exact R M
   set i₁ : (Fin m → R) ⊗[R] (Π i, N i) →ₗ[R] Π i, ((Fin m → R) ⊗[R] N i) :=
     (tensorPi_equiv_piTensor R (Fin m → R) N).toLinearMap

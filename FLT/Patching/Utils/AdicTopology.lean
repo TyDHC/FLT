@@ -1,15 +1,19 @@
-import Mathlib.RingTheory.AdicCompletion.Basic
-import Mathlib.RingTheory.Ideal.Quotient.Index
-import Mathlib.Topology.Algebra.Algebra
-import Mathlib.Topology.Algebra.Group.ClosedSubgroup
-import Mathlib.Topology.Algebra.Field
-import Mathlib.Topology.Algebra.Nonarchimedean.AdicTopology
-import Mathlib.Topology.Connected.Separation
-import FLT.Patching.Utils.InverseLimit
-import FLT.Patching.Utils.Lemmas
-import Mathlib.RingTheory.Artinian.Ring
-import Mathlib.Topology.Algebra.Ring.Compact
-import Mathlib.Topology.Algebra.LinearTopology
+module
+
+public import Mathlib.RingTheory.AdicCompletion.Basic
+public import Mathlib.RingTheory.Ideal.Quotient.Index
+public import Mathlib.Topology.Algebra.Algebra
+public import Mathlib.Topology.Algebra.Group.ClosedSubgroup
+public import Mathlib.Topology.Algebra.Field
+public import Mathlib.Topology.Algebra.Nonarchimedean.AdicTopology
+public import Mathlib.Topology.Connected.Separation
+public import FLT.Patching.Utils.InverseLimit
+public import FLT.Patching.Utils.Lemmas
+public import Mathlib.RingTheory.Artinian.Ring
+public import Mathlib.Topology.Algebra.Ring.Compact
+public import Mathlib.Topology.Algebra.LinearTopology
+
+@[expose] public section
 
 variable (R) [CommRing R] [IsLocalRing R] [TopologicalSpace R] [IsTopologicalRing R]
 
@@ -121,7 +125,6 @@ instance [CompactSpace R] : IsPrecomplete (maximalIdeal R) R where
         simpa using (H e).symm⟩)
     simpa [funext_iff, eq_comm (b := Ideal.Quotient.mk _ (f _))] using this
 
-set_option backward.isDefEq.respectTransparency false in
 variable {R} in
 lemma compactSpace_of_finite_residueField [IsNoetherianRing R] [Finite (ResidueField R)]
     [IsAdicComplete (maximalIdeal R) R] :

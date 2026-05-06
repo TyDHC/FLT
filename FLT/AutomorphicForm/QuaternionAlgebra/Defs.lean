@@ -3,11 +3,15 @@ Copyright (c) 2024 Kevin Buzzard. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Kevin Buzzard
 -/
-import FLT.Hacks.RightActionInstances
-import FLT.Mathlib.Algebra.FixedPoints.Basic
-import Mathlib.NumberTheory.NumberField.Completion.FinitePlace
-import Mathlib.Order.CompletePartialOrder
-import Mathlib.RingTheory.DedekindDomain.FiniteAdeleRing
+module
+
+public import FLT.Hacks.RightActionInstances
+public import FLT.Mathlib.Algebra.FixedPoints.Basic
+public import Mathlib.NumberTheory.NumberField.Completion.FinitePlace
+public import Mathlib.Order.CompletePartialOrder
+public import Mathlib.RingTheory.DedekindDomain.FiniteAdeleRing
+
+@[expose] public section
 
 /-
 
@@ -29,15 +33,10 @@ In the `TotallyDefiniteQuaternionAlgebra` namespace:
   It is a nontrivial theorem that if `U` is open and `R` is Noetherian then this space
   is a finitely-generated `R`-module; this follows from Fujisaki's lemma.
 
-## Implementation notes
-
-This file is slow, for reasons I don't understand properly.
 -/
 
 suppress_compilation
 
-set_option maxSynthPendingDepth 1 -- otherwise things are even slower, for some reason which
--- I never quite got to the bottom of
 
 variable (F : Type*) [Field F] [NumberField F] -- if F isn't totally real all the definitions
 -- below are garbage mathematically but they typecheck.

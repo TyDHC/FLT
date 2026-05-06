@@ -3,15 +3,19 @@ Copyright (c) 2025 Kevin Buzzard. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Kevin Buzzard, Andrew Yang, Matthew Jasper
 -/
-import FLT.AutomorphicForm.QuaternionAlgebra.HeckeOperators.Local -- abstract Hecke ops
-import FLT.AutomorphicForm.QuaternionAlgebra.HeckeOperators.Abstract -- abstract Hecke ops
-import FLT.AutomorphicForm.QuaternionAlgebra.Defs -- definitions of automorphic forms
-import FLT.QuaternionAlgebra.NumberField -- rigidifications of quat algs
-import Mathlib.NumberTheory.NumberField.InfinitePlace.TotallyRealComplex
-import Mathlib.RingTheory.DedekindDomain.FiniteAdeleRing
-import FLT.DedekindDomain.FiniteAdeleRing.LocalUnits -- for (π 0; 0 1)
-import FLT.Mathlib.Topology.Algebra.RestrictedProduct.TopologicalSpace
-import FLT.Mathlib.LinearAlgebra.Matrix.GeneralLinearGroup.Defs
+module
+
+public import FLT.AutomorphicForm.QuaternionAlgebra.HeckeOperators.Local -- abstract Hecke ops
+public import FLT.AutomorphicForm.QuaternionAlgebra.HeckeOperators.Abstract -- abstract Hecke ops
+public import FLT.AutomorphicForm.QuaternionAlgebra.Defs -- definitions of automorphic forms
+public import FLT.QuaternionAlgebra.NumberField -- rigidifications of quat algs
+public import Mathlib.NumberTheory.NumberField.InfinitePlace.TotallyRealComplex
+public import Mathlib.RingTheory.DedekindDomain.FiniteAdeleRing
+public import FLT.DedekindDomain.FiniteAdeleRing.LocalUnits -- for (π 0; 0 1)
+public import FLT.Mathlib.Topology.Algebra.RestrictedProduct.TopologicalSpace
+public import FLT.Mathlib.LinearAlgebra.Matrix.GeneralLinearGroup.Defs
+
+@[expose] public section
 /-
 
 # Concrete Hecke operators
@@ -127,7 +131,6 @@ variable (R : Type*) [CommRing R]
 namespace HeckeOperator
 
 variable {F D S} in
-set_option maxSynthPendingDepth 1 in
 open scoped TensorProduct.RightActions in
 /-- The Hecke operator T_v as an R-linear map from R-valued quaternionic weight 2
 automorphic forms of level U_1(S).
@@ -208,7 +211,6 @@ lemma quot_top_finite (r : Rigidification F D) (α : v.adicCompletionIntegers F)
   apply Set.Finite.of_finite_image _ (unipotent_mul_diag_inj r α hα)
   apply unipotent_mul_diag_image_finite
 
-set_option maxSynthPendingDepth 1 in -- shaves a little time off compilation!
 /-- The Hecke operator U_{v,α} associated to the matrix (α 0;0 1) at v,
 considered as an R-linear map from R-valued quaternionic weight 2
 automorphic forms of level U_1(S). Here α is a nonzero element of 𝓞ᵥ.

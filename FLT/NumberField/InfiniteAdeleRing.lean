@@ -1,11 +1,13 @@
-import FLT.NumberField.Completion.Infinite
-import FLT.Mathlib.LinearAlgebra.Dimension.Constructions
-import FLT.Mathlib.LinearAlgebra.Pi
-import FLT.Mathlib.Topology.Constructions
-import FLT.Mathlib.Topology.Algebra.Module.Equiv
-import Mathlib.RingTheory.TensorProduct.Pi
-import FLT.Mathlib.NumberTheory.NumberField.InfiniteAdeleRing
-import FLT.Mathlib.Topology.Algebra.Algebra.Hom
+module
+
+public import FLT.NumberField.Completion.Infinite
+public import FLT.Mathlib.LinearAlgebra.Dimension.Constructions
+public import FLT.Mathlib.LinearAlgebra.Pi
+public import FLT.Mathlib.Topology.Constructions
+public import FLT.Mathlib.Topology.Algebra.Module.Equiv
+public import Mathlib.RingTheory.TensorProduct.Pi
+public import FLT.Mathlib.NumberTheory.NumberField.InfiniteAdeleRing
+public import FLT.Mathlib.Topology.Algebra.Algebra.Hom
 
 /-! # Base change for the infinite adele ring
 
@@ -61,6 +63,8 @@ The desired instances are constructed later as `scoped` instances in `FLT.Number
   topology on `L∞`.
 -/
 
+@[expose] public section
+
 variable (K L : Type*) [Field K] [Field L] [Algebra K L]
 
 open NumberField InfinitePlace SemialgHom
@@ -72,7 +76,6 @@ namespace NumberField.InfiniteAdeleRing
 /-- `K∞` is notation for `InfiniteAdeleRing K`. -/
 scoped notation:10000 K "∞" => InfiniteAdeleRing K
 
-set_option backward.isDefEq.respectTransparency false in
 /-- The canonical map from the infinite adeles of K to the infinite adeles of L -/
 noncomputable def baseChange :
     K∞ →SA[algebraMap K L] L∞ where
@@ -107,7 +110,6 @@ noncomputable def piEquiv [Algebra K∞ L∞]
       fun v : InfinitePlace K ↦ (Completion.piEquiv L v).symm).symm
   this
 
-set_option backward.isDefEq.respectTransparency false in
 instance instIsModuleTopology_fLT [Algebra K∞ L∞]
     [Pi.FiberwiseSMul (fun a => a.comap (algebraMap K L)) Completion Completion] :
     IsModuleTopology K∞ L∞ := .iso (piEquiv K L)
@@ -162,7 +164,6 @@ instance [Algebra K∞ L∞]
 -- `IsModuleTopology.continuousAlgEquivOfIsScalarTower` is then applicable in the same
 -- way it was for `baseChangeEquiv` in `InfinitePlace.Completion`
 
-set_option backward.isDefEq.respectTransparency false in
 /-- The canonical `L`-algebra homeomorphism from `L ⊗_K K_∞` to `L_∞` induced by the
 `K`-algebra base change map `K_∞ → L_∞`. -/
 noncomputable

@@ -3,15 +3,17 @@ Copyright (c) 2025 Matthew Jasper. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Matthew Jasper
 -/
-import FLT.Mathlib.RingTheory.Valuation.ValuationSubring
-import FLT.Mathlib.RingTheory.LocalRing.MaximalIdeal.Basic
-import FLT.Mathlib.RingTheory.DedekindDomain.AdicValuation
-import Mathlib.Algebra.Order.GroupWithZero.Canonical
-import Mathlib.Algebra.Group.Int.TypeTags
-import Mathlib.NumberTheory.RamificationInertia.Basic
-import Mathlib.RingTheory.PrincipalIdealDomainOfPrime
-import Mathlib.RingTheory.DiscreteValuationRing.Basic
-import Mathlib.RingTheory.Valuation.Discrete.RankOne
+module
+
+public import FLT.Mathlib.RingTheory.Valuation.ValuationSubring
+public import FLT.Mathlib.RingTheory.LocalRing.MaximalIdeal.Basic
+public import FLT.Mathlib.RingTheory.DedekindDomain.AdicValuation
+public import Mathlib.Algebra.Order.GroupWithZero.Canonical
+public import Mathlib.Algebra.Group.Int.TypeTags
+public import Mathlib.NumberTheory.RamificationInertia.Basic
+public import Mathlib.RingTheory.PrincipalIdealDomainOfPrime
+public import Mathlib.RingTheory.DiscreteValuationRing.Basic
+public import Mathlib.RingTheory.Valuation.Discrete.RankOne
 
 /-!
 
@@ -36,6 +38,8 @@ This file makes some progress towards this.
     of primes of `A`, then `K` is dense in `∏_{v ∈ s} K_v`.
 * We show (as an unnamed instance) `IsDiscreteValuationRing (𝒪[v.adicCompletion K])`
 -/
+
+@[expose] public section
 
 namespace IsDedekindDomain.HeightOneSpectrum
 
@@ -80,7 +84,7 @@ lemma emultiplicity_eq_of_valuation_eq_ofAdd {a : A} {k : ℕ}
   simp only [intValuation_if_neg _ hnz, WithZero.exp, ofAdd_neg, WithZero.coe_inv, inv_inj,
     WithZero.coe_inj, EmbeddingLike.apply_eq_iff_eq, Nat.cast_inj] at hv
   rw [← hv, UniqueFactorizationMonoid.emultiplicity_eq_count_normalizedFactors v.irreducible hnb,
-    count_associates_factors_eq hnb v.isPrime v.ne_bot, normalize_eq]
+    Ideal.count_associates_factors_eq hnb v.isPrime v.ne_bot, normalize_eq]
 
 /-- Given `a, b ∈ A` and `v b ≤ v a` we can find `y in A` such that `y` is close to `a / b` by
     the valuation v. -/
@@ -109,7 +113,7 @@ lemma exists_adicValued_mul_sub_le {a b : A} {γ : WithZero (Multiplicative ℤ)
   -- Now make use of
   -- `v.asIdeal ^ multiplicity v.asIdeal (Ideal.span {a}) = v.asIdeal ^ n ⊔ Ideal.span {a}`
   -- (this is where we need `IsDedekindDomain A`)
-  rw [← irreducible_pow_sup_of_ge hnb (irreducible v) n hm] at hb
+  rw [← Ideal.irreducible_pow_sup_of_ge hnb (irreducible v) n hm] at hb
   -- Extract y by writing b as a general term of the sum of the two ideals.
   obtain ⟨x, hx, z, hz, hxz⟩ := Submodule.mem_sup.mp hb
   obtain ⟨y, hy⟩ := Ideal.mem_span_singleton'.mp hz
@@ -117,7 +121,6 @@ lemma exists_adicValued_mul_sub_le {a b : A} {γ : WithZero (Multiplicative ℤ)
   -- And again prove the result about valuations by turning into one about ideals.
   rwa [hy, ← hxz, sub_add_cancel_right, intValuation_le_pow_iff_mem, neg_mem_iff]
 
-set_option backward.isDefEq.respectTransparency false in
 open MonoidWithZeroHom in
 lemma exists_adicValued_sub_lt_of_adicValued_le_one {x : (WithVal (v.valuation K))}
     (γ : ((WithZero (Multiplicative ℤ)))ˣ) (hx : Valued.v x ≤ 1) :

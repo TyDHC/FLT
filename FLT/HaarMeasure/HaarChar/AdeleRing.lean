@@ -1,15 +1,17 @@
-import FLT.HaarMeasure.HaarChar.Ring
-import FLT.Mathlib.Algebra.Central.TensorProduct
-import FLT.Mathlib.MeasureTheory.Constructions.BorelSpace.AdicCompletion
-import FLT.Mathlib.NumberTheory.NumberField.AdeleRing
-import FLT.Mathlib.NumberTheory.Padics.HeightOneSpectrum
-import FLT.NumberField.AdeleRing
-import FLT.HaarMeasure.HaarChar.RealComplex
-import FLT.HaarMeasure.HaarChar.Padic
-import FLT.HaarMeasure.HaarChar.FiniteDimensional
-import Mathlib.NumberTheory.NumberField.ProductFormula
-import FLT.HaarMeasure.HaarChar.FiniteDimensional
-import FLT.HaarMeasure.HaarChar.FiniteAdeleRing
+module
+
+public import FLT.HaarMeasure.HaarChar.Ring
+public import FLT.Mathlib.Algebra.Central.TensorProduct
+public import FLT.Mathlib.MeasureTheory.Constructions.BorelSpace.AdicCompletion
+public import FLT.Mathlib.NumberTheory.NumberField.AdeleRing
+public import FLT.Mathlib.NumberTheory.Padics.HeightOneSpectrum
+public import FLT.NumberField.AdeleRing
+public import FLT.HaarMeasure.HaarChar.RealComplex
+public import FLT.HaarMeasure.HaarChar.Padic
+public import FLT.HaarMeasure.HaarChar.FiniteDimensional
+public import Mathlib.NumberTheory.NumberField.ProductFormula
+public import FLT.HaarMeasure.HaarChar.FiniteDimensional
+public import FLT.HaarMeasure.HaarChar.FiniteAdeleRing
 
 /-!
 
@@ -21,6 +23,8 @@ a Haar character `(B ⊗ 𝔸_K)ˣ → ℝ>0`. In this file we show
 that the global units `Bˣ` are in the kernel of this character.
 
 -/
+
+@[expose] public section
 
 open NumberField
 
@@ -130,7 +134,6 @@ lemma LinearMap.toMatrix_basis {R : Type*} (A : Type*) {M : Type*} {ι j : Type*
   ext
   simp
 
-set_option backward.isDefEq.respectTransparency false in
 open TensorProduct.RightActions in
 lemma MeasureTheory.addHaarScalarFactor_tensor_adeles_rat_eq_one [Module ℚ V]
     [FiniteDimensional ℚ V] (φ : V ≃ₗ[ℚ] V)
@@ -159,7 +162,6 @@ lemma MeasureTheory.addHaarScalarFactor_tensor_adeles_rat_eq_one [Module ℚ V]
     ext
     simp
 
-set_option backward.isDefEq.respectTransparency false in
 open scoped NumberField.AdeleRing in
 open TensorProduct.RightActions in
 lemma MeasureTheory.addHaarScalarFactor_tensor_adeles_eq_one (φ : V ≃ₗ[K] V)
@@ -191,7 +193,6 @@ lemma MeasureTheory.addHaarScalarFactor_tensor_adeles_eq_one (φ : V ≃ₗ[K] V
     | tmul x y => rfl
     | add x y hx hy => simp at hx hy; simp [hx, hy]
 
-set_option backward.isDefEq.respectTransparency false in
 open TensorProduct.RightActions in
 /-- Left multiplication by an element of Bˣ on B ⊗ 𝔸_K does not scale additive
 Haar measure. In other words, Bˣ is in the kernel of the `ringHaarChar` of `B ⊗ 𝔸_K`.
@@ -211,7 +212,6 @@ lemma NumberField.AdeleRing.units_mem_ringHaarCharacter_ker
   | tmul x y => simp [LinearEquiv.mulLeft]
   | add x y hx hy => simp_all [mul_add]
 
-set_option backward.isDefEq.respectTransparency false in
 open TensorProduct.RightActions in
 /-- Right multiplication by an element of Bˣ on B ⊗ 𝔸_K does not scale additive
 Haar measure.

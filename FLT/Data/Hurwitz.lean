@@ -1,5 +1,12 @@
-import Mathlib.Analysis.Quaternion
+module
 
+public import Mathlib.Analysis.Quaternion
+
+@[expose] public section
+
+/-- Hurwitz integers in the quaternions. ℤ-Basis 1, ω=(1+i+j+k)/2, i and
+ωi=(-1+i+j-k)/2.
+-/
 @[ext]
 structure Hurwitz : Type where
   re : ℤ -- 1
@@ -450,7 +457,6 @@ private lemma aux2 (a b c d : ℝ) (ha : a ≤ 4⁻¹) (hb : b ≤ 4⁻¹) (hc :
   rw [this, le_sub_comm, invs] <;>
   gcongr
 
-set_option backward.isDefEq.respectTransparency false in
 open Quaternion in
 lemma exists_near (a : ℍ) : ∃ q : 𝓞, dist a (toQuaternion q) < 1 := by
   have four_inv : (4⁻¹ : ℝ) = 2⁻¹ ^ 2 := by norm_num
@@ -537,7 +543,7 @@ lemma left_ideal_princ (I : Submodule 𝓞 𝓞) : ∃ a : 𝓞, I = Submodule.s
     rintro _ ⟨_, rfl⟩
     exact norm_nonneg _
   obtain ⟨a, ha⟩ : ∃ a : S, norm a = ⨅ i : S, norm i :=
-    exists_eq_ciInf_of_not_isPredPrelimit hbdd (Order.not_isPredPrelimit)
+    exists_eq_ciInf_of_not_isPredPrelimit hbdd Order.not_isPredPrelimit_of_isPredArchimedean
   use a
   apply le_antisymm
   · intro i hi
